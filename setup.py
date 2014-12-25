@@ -4,11 +4,13 @@ import itertools
 
 options = dict(
     name='iso639',
-    version='0.1',
+    version='0.1.1',
     packages=find_packages(),
     license='MIT',
     description='ISO639-2 support for Python.',
     long_description=open('README.md').read(),
+    package_data={'': ['iso639/ISO-639-2_utf-8.txt']},
+    include_package_data=True,
     author='Jan Pipek',
     author_email='jan.pipek@gmail.com',
     url='https://github.com/janpipek/iso639-python',
