@@ -9,6 +9,16 @@ class NonExistentLanguageError(RuntimeError):
     pass
 
 def find(whatever=None, language=None, iso639_1=None, iso639_2=None):
+    """Find data row with the language.
+
+    :param whatever: key to search in any of the following fields
+    :param language: key to search in English language name
+    :param iso639_1: key to search in ISO 639-1 code (2 digits)
+    :param iso639_2: key to search in ISO 639-2 code (3 digits, bibliographic & terminological)
+    :return: a dict with keys (u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t')
+
+    All arguments can be both string or unicode.
+    """
     if whatever:
         keys = [u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t']
         val = whatever
@@ -28,18 +38,39 @@ def find(whatever=None, language=None, iso639_1=None, iso639_2=None):
 
 
 def is_valid639_1(code):
+    """Whether code exists as ISO 639-1 code.
+
+    >>> is_valid639_1("swe")
+    False
+    >>> is_valid639_1("sv")
+    True
+    """
     if len(code) != 2:
         return False
     return find(iso639_1=code) is not None
 
 
 def is_valid639_2(code):
+    """Whether code exists as ISO 639-2 code.
+
+    >>> is_valid639_2("swe")
+    True
+    >>> is_valid639_2("sv")
+    False
+    """
     if len(code) != 3:
         return False
     return find(iso639_2=code) is not None
 
 
 def to_iso639_1(key):
+    """Find ISO 639-1 code for language specified by key.
+
+    >>> to_iso639_1("swe")
+    u'sv'
+    >>> to_iso639_1("English")
+    u'en'
+    """
     item = find(whatever=key)
     if not item:
         raise NonExistentLanguageError('Language does not exist.')
@@ -47,6 +78,15 @@ def to_iso639_1(key):
 
 
 def to_iso639_2(key, type='B'):
+    """Find ISO 639-2 code for language specified by key.
+
+    :param type: "B" - bibliographical (default), "T" - terminological
+
+    >>> to_iso639_2("German")
+    u'ger'
+    >>> to_iso639_2("German", "T")
+    u'deu'
+    """
     if not type in ('B', 'T'):
         raise ValueError('Type must be either "B" or "T".')
     item = find(whatever=key)
@@ -58,6 +98,13 @@ def to_iso639_2(key, type='B'):
 
 
 def to_name(key):
+    """Find English for language specified by key.
+
+    >>> to_name('sv')
+    u'Swedish'
+    >>> to_name('sw')
+    u'Swahili'
+    """
     item = find(whatever=key)
     if not item:
         raise NonExistentLanguageError('Language does not exist.')
