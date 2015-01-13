@@ -1,3 +1,6 @@
+[![Latest Version](https://pypip.in/version/iso639/badge.svg)](https://pypi.python.org/pypi/iso639/)
+[![License](https://pypip.in/license/iso639/badge.svg)](https://pypi.python.org/pypi/iso639/)
+
 iso639
 ======
 A simple library for working with ISO639-2 language codes.
@@ -7,7 +10,7 @@ Includes data from Congress library: http://www.loc.gov/standards/iso639-2/php/c
 
 Alternatives
 ------------
-* **pycountry**: https://bitbucket.org/flyingcircus/pycountry 
+* **pycountry**: https://bitbucket.org/flyingcircus/pycountry - a more-featured packaeg
 
 Example usage
 -------------
