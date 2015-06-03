@@ -8,9 +8,22 @@ Tested for Python 2.7 & 3.4.
 
 Includes data from Congress library: http://www.loc.gov/standards/iso639-2/php/code_list.php
 
+Installation
+------------
+The easiest way is using `pip`:
+
+    pip install iso639
+
 Alternatives
 ------------
 * **pycountry**: https://bitbucket.org/flyingcircus/pycountry - a more-featured packaeg
 
 Example usage
 -------------
+
+```python
+import iso639
+
+>>> iso639.to_name('sv')
+u'Swedish'
+```
