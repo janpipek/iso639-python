@@ -140,7 +140,7 @@ def _load_data():
             u'self_name': data[4],
         }
 
-    data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ISO-639-2_utf-8.txt')
+    data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'languages_utf-8.txt')
     with codecs.open(data_file, 'r', 'UTF-8') as f:
         data = [ parse_line(line) for line in f]
     return data
