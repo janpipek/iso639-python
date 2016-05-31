@@ -34,6 +34,7 @@ def find(whatever=None, language=None, iso639_1=None, iso639_2=None, self_name=N
         val = iso639_2
     elif self_name:
         keys = [u'self_name']
+        val = self_name
     else:
         raise ValueError('Invalid search criteria.')
     val = unicode(val)
