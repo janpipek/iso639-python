@@ -118,8 +118,8 @@ def to_name(key):
 def to_self_name(key):
     """Find the name for the language specified by key, expressed in that language.
 
-    >>> to_self_name('sv')
-    u'suédois'
+    >>> to_self_name('ru')
+    u'russe'
     >>> to_self_name('sw')
     u'swahili'
     """
