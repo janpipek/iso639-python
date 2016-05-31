@@ -8,20 +8,20 @@ if not 'unicode' in dir():
 class NonExistentLanguageError(RuntimeError):
     pass
 
-def find(whatever=None, language=None, iso639_1=None, iso639_2=None, self_name=None):
+def find(whatever=None, language=None, iso639_1=None, iso639_2=None, native=None):
     """Find data row with the language.
 
     :param whatever: key to search in any of the following fields
     :param language: key to search in English language name
     :param iso639_1: key to search in ISO 639-1 code (2 digits)
     :param iso639_2: key to search in ISO 639-2 code (3 digits, bibliographic & terminological)
-    :param self_name: key to search in language's name for itself
-    :return: a dict with keys (u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t', u'self_name')
+    :param native: key to search in native language name
+    :return: a dict with keys (u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t', u'native')
 
     All arguments can be both string or unicode.
     """
     if whatever:
-        keys = [u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t', u'self_name']
+        keys = [u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t', u'native']
         val = whatever
     elif language:
         keys = [u'name']
@@ -32,9 +32,9 @@ def find(whatever=None, language=None, iso639_1=None, iso639_2=None, self_name=N
     elif iso639_2:
         keys = [u'iso639_2_b', u'iso639_2_t']
         val = iso639_2
-    elif self_name:
-        keys = [u'self_name']
-        val = self_name
+    elif native:
+        keys = [u'native']
+        val = native
     else:
         raise ValueError('Invalid search criteria.')
     val = unicode(val)
@@ -102,10 +102,10 @@ def to_iso639_2(key, type='B'):
 
 
 def to_name(key):
-    """Find the English name for language specified by key.
+    """Find the English name for the language specified by key.
 
-    >>> to_name('sv')
-    u'Swedish'
+    >>> to_name('br')
+    u'Breton'
     >>> to_name('sw')
     u'Swahili'
     """
@@ -115,18 +115,18 @@ def to_name(key):
     return item[u'name']
 
 
-def to_self_name(key):
-    """Find the name for the language specified by key, expressed in that language.
+def to_native(key):
+    """Find the native name for the language specified by key.
 
-    >>> to_self_name('ru')
-    u'russe'
-    >>> to_self_name('sw')
-    u'swahili'
+    >>> to_native('br')
+    u'brezhoneg'
+    >>> to_native('sw')
+    u'Kiswahili'
     """
     item = find(whatever=key)
     if not item:
         raise NonExistentLanguageError('Language does not exist.')
-    return item[u'self_name']
+    return item[u'native']
     
     
 def _load_data():
@@ -137,7 +137,7 @@ def _load_data():
             u'iso639_2_t': data[1],
             u'iso639_1': data[2],
             u'name': data[3],
-            u'self_name': data[4],
+            u'native': data[4],
         }
 
     data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'languages_utf-8.txt')
