@@ -118,9 +118,9 @@ def to_name(key):
 def to_self_name(key):
     """Find the name for the language specified by key, expressed in that language.
 
-    >>> to_name('sv')
+    >>> to_self_name('sv')
     u'suédois'
-    >>> to_name('sw')
+    >>> to_self_name('sw')
     u'swahili'
     """
     item = find(whatever=key)
