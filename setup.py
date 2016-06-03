@@ -4,12 +4,12 @@ import itertools
 
 options = dict(
     name='iso639',
-    version='0.1.2',
+    version='0.1.3',
     packages=find_packages(),
     license='MIT',
     description='ISO639-2 support for Python.',
     long_description=open('README.md').read(),
-    package_data={'': ['iso639/languages_utf-8.txt']},
+    package_data={'iso639': ['languages_utf-8.txt']},
     include_package_data=True,
     author='Jan Pipek',
     author_email='jan.pipek@gmail.com',
