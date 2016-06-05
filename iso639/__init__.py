@@ -18,7 +18,8 @@ def find(whatever=None, language=None, iso639_1=None, iso639_2=None, native=None
     :param native: key to search in native language name
     :return: a dict with keys (u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t', u'native')
 
-    All arguments can be both string or unicode.
+    All arguments can be both string or unicode (Python 2).
+    If there are multiple names defined, any of these can be looked for.
     """
     if whatever:
         keys = [u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t', u'native']
@@ -37,8 +38,8 @@ def find(whatever=None, language=None, iso639_1=None, iso639_2=None, native=None
         val = native
     else:
         raise ValueError('Invalid search criteria.')
-    val = unicode(val)
-    return next((item for item in data if any(item[key] == val for key in keys)), None)
+    val = unicode(val).lower()
+    return next((item for item in data if any(val in item[key].lower().split("; ") for key in keys)), None)
 
 
 def is_valid639_1(code):
