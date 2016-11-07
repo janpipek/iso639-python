@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
 import itertools
+from iso639 import __version__
 
 options = dict(
     name='iso639',
-    version='0.1.4',
+    version=__version__,
     packages=find_packages(),
     license='MIT',
     description='ISO639-2 support for Python.',
