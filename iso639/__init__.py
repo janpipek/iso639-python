@@ -4,6 +4,8 @@ import codecs
 # Python 3.4 compatibility
 if not 'unicode' in dir():
     unicode = str
+    
+__version__ = '0.1.4'    
 
 class NonExistentLanguageError(RuntimeError):
     pass
