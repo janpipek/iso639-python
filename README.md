@@ -10,6 +10,14 @@ Installation
 The easiest way is using `pip`:
 
     pip install iso639
+    
+If you are using Fedora 24+, you can install iso639 using dnf:
+
+    dnf install python2-iso639   
+    # or
+    dnf install python3-iso639
+    
+Thanks, unknown Fedora packagers :-)
 
 Alternatives
 ------------
