@@ -1,24 +1,30 @@
 import os
 import codecs
 
-# Python 3.4 compatibility
-if not 'unicode' in dir():
+# Python 3.4+ compatibility
+if 'unicode' not in dir():
     unicode = str
-    
-__version__ = '0.1.4'    
+
+
+__version__ = '0.1.4'
+
 
 class NonExistentLanguageError(RuntimeError):
     pass
 
-def find(whatever=None, language=None, iso639_1=None, iso639_2=None, native=None):
+
+def find(whatever=None, language=None, iso639_1=None,
+         iso639_2=None, native=None):
     """Find data row with the language.
 
     :param whatever: key to search in any of the following fields
     :param language: key to search in English language name
     :param iso639_1: key to search in ISO 639-1 code (2 digits)
-    :param iso639_2: key to search in ISO 639-2 code (3 digits, bibliographic & terminological)
+    :param iso639_2: key to search in ISO 639-2 code (3 digits,
+                     bibliographic & terminological)
     :param native: key to search in native language name
-    :return: a dict with keys (u'name', u'iso639_1', u'iso639_2_b', u'iso639_2_t', u'native')
+    :return: a dict with keys (u'name', u'iso639_1', u'iso639_2_b',
+                     u'iso639_2_t', u'native')
 
     All arguments can be both string or unicode (Python 2).
     If there are multiple names defined, any of these can be looked for.
@@ -41,7 +47,8 @@ def find(whatever=None, language=None, iso639_1=None, iso639_2=None, native=None
     else:
         raise ValueError('Invalid search criteria.')
     val = unicode(val).lower()
-    return next((item for item in data if any(val in item[key].lower().split("; ") for key in keys)), None)
+    return next((item for item in data if any(
+        val in item[key].lower().split("; ") for key in keys)), None)
 
 
 def is_valid639_1(code):
@@ -94,7 +101,7 @@ def to_iso639_2(key, type='B'):
     >>> to_iso639_2("German", "T")
     u'deu'
     """
-    if not type in ('B', 'T'):
+    if type not in ('B', 'T'):
         raise ValueError('Type must be either "B" or "T".')
     item = find(whatever=key)
     if not item:
@@ -130,8 +137,8 @@ def to_native(key):
     if not item:
         raise NonExistentLanguageError('Language does not exist.')
     return item[u'native']
-    
-    
+
+
 def _load_data():
     def parse_line(line):
         data = line.strip().split('|')
@@ -143,10 +150,11 @@ def _load_data():
             u'native': data[4],
         }
 
-    data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'languages_utf-8.txt')
+    data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             'languages_utf-8.txt')
     with codecs.open(data_file, 'r', 'UTF-8') as f:
-        data = [ parse_line(line) for line in f]
+        data = [parse_line(line) for line in f]
     return data
 
-data = _load_data()
 
+data = _load_data()
